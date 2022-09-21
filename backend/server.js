@@ -7,7 +7,6 @@ const app = express();
 
 // DB
 dbConnect();
-console.log(process.env);
 
 // server
 const PORT = process.env.PORT || 5000;

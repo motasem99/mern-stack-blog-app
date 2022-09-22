@@ -1,20 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
-
 dotenv.config();
 const dbConnect = require('./config/db/dbConnect');
+const { userRegisterCtrl } = require('./controllers/users/userController');
 const app = express();
 
 // DB
 dbConnect();
 
+app.use(express.json());
+
 // Register
-app.post('/api/users/register', (req, res) => {
-  // business logic
-  res.json({
-    user: 'User Registered',
-  });
-});
+app.post('/api/users/register', userRegisterCtrl);
 
 // Login
 app.post('/api/users/login', (req, res) => {

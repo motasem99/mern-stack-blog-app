@@ -1,10 +1,11 @@
+const expressAsyncHandler = require('express-async-handler');
 const User = require('../../model/user/User');
 
 //----------------------------------------
 // Register
 // ---------------------------------------
 
-const userRegisterCtrl = async (req, res) => {
+const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
   // check if user Exists
 
   const userExist = await User.findOne({ email: req?.body?.email });
@@ -22,6 +23,6 @@ const userRegisterCtrl = async (req, res) => {
   } catch (error) {
     res.json(error);
   }
-};
+});
 
 module.exports = { userRegisterCtrl };

@@ -83,9 +83,27 @@ const deleteUserCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------
+// Delete User
+// ---------------------------------------
+
+const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  // check if user id is valid
+  validateMongodbId(id);
+
+  try {
+    const user = await User.findById(id);
+    res.json(user);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 module.exports = {
   userRegisterCtrl,
   loginUserCtrl,
   fetchUsersCtrl,
   deleteUserCtrl,
+  fetchUserDetailsCtrl,
 };

@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const dbConnect = require('./config/db/dbConnect');
 const userRoutes = require('./route/users/usersRoute');
-const { errorHandler } = require('./middlewares/error/errorHandler');
+const { errorHandler, notFound } = require('./middlewares/error/errorHandler');
 
 const app = express();
 
@@ -17,6 +17,7 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 
 // err handler
+app.use(notFound);
 app.use(errorHandler);
 
 // server

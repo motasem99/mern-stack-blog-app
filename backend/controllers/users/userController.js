@@ -58,7 +58,6 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
 // ---------------------------------------
 
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.headers);
   try {
     const users = await User.find({});
     res.json(users);
@@ -101,10 +100,26 @@ const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//----------------------------------------
+// User profile
+// ---------------------------------------
+
+const userProfileCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+  try {
+    const myProfile = await User.findById(id);
+    res.json(myProfile);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 module.exports = {
   userRegisterCtrl,
   loginUserCtrl,
   fetchUsersCtrl,
   deleteUserCtrl,
   fetchUserDetailsCtrl,
+  userProfileCtrl,
 };
